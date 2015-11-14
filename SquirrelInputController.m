@@ -286,7 +286,7 @@
     RIME_STRUCT(RimeCommit, commit);
     if (RimeGetCommit(_session, &commit) && ![_preeditString isEqualToString:@"　"]) {
       //    NSString *commitText = [NSString stringWithUTF8String:commit.text];
-      [self commitString: _preeditString];
+      [self commitString: [_preeditString stringByReplacingOccurrencesOfString:@" " withString:@""]];
       RimeFreeCommit(&commit);
     }
   }
