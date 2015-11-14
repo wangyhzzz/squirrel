@@ -283,7 +283,12 @@
     return;
   // force committing existing Rime composition
   if (_session && RimeCommitComposition(_session)) {
-    [self rimeConsumeCommittedText];
+    RIME_STRUCT(RimeCommit, commit);
+    if (RimeGetCommit(_session, &commit) && ![_preeditString isEqualToString:@"　"]) {
+      //    NSString *commitText = [NSString stringWithUTF8String:commit.text];
+      [self commitString: _preeditString];
+      RimeFreeCommit(&commit);
+    }
   }
 }
 
